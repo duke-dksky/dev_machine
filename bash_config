@@ -1,0 +1,18 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+export COMMON_HOME=/usr/local/bin
+export PYTHON_HOME=/data/src/Python3/bin
+export CMAKE_HOME=/data/src/cmake/bin
+
+export GOROOT=/usr/local/go
+export GOPATH=/data/go_workspace
+
+PATH=${COMMON_HOME}:${CMAKE_HOME}:${PYTHON_HOME}:$PATH:$HOME/bin:${GOROOT}/bin:${GOPATH}/bin
+
+export PATH

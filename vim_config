@@ -1,0 +1,263 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sections:
+" "    -> General
+" "    -> VIM user interface
+" "    -> Fonts
+" "    -> Files and backups
+" "    -> Text, tab and indent related
+" "    -> Visual mode related
+" "    -> Moving around, tabs and buffers
+" "    -> Editing mappings
+" "    -> vimgrep searching and cope displaying
+" "    -> Spell checking
+" "    -> Misc
+" "    -> Helper functions
+" "    -> Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" be iMproved, required by lots of plugins!
+set nocompatible    
+
+" Sets how many lines of history VIM has to remember
+set history=700
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+"set autoread
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+" map <ESC> to jk
+inoremap jk <ESC>
+
+" make '.'(redo) useful in Visual Mode
+vnoremap . :norm.<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set scrolloff=7
+
+" Turn on the WiLd menu
+set wildmenu
+
+" Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases, If there is upper case character
+" in the search patern, the 'ignorecase' option will be override
+set smartcase
+
+" Highlight search results
+set hlsearch
+hi Search guibg=Yellow guifg=Black ctermbg=Yellow ctermfg=Black
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" How many tenths of a second to blink when matching brackets
+set matchtime=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Set line number
+set number
+
+set clipboard=unnamedplus
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Fonts and Encoding
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable syntax highlighting
+syntax enable
+
+" cursorline
+" set cursorline
+" hi CursorLine cterm=NONE ctermbg=darkgrey ctermfg=white
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=m
+    set guioptions+=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+set fileencodings=utf8,gbk
+set fileencoding=utf8
+
+" Visual mode text selection color
+hi Visual term=reverse cterm=reverse guibg=Grey
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4        " a <Tab> width in front of a line
+set tabstop=4           " a <Tab> width in other place
+
+" Wrap a long line at a character in 'breakat'(just visually)
+set linebreak
+
+" Copy indent from current line when starting a new line(via 'o'/'O')
+set autoindent
+
+" Press F3 before paste something to Vim. Afterwards, press again to enable ai
+set pastetoggle=<F3>
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+"""""""""""""""""""""""""""""""
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Treat long lines as break lines (userful when moving around in them)
+map j gj
+map k gk
+
+" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+
+" Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+cnoremap <expr> %% getcmdtype( ) == ':' ? expand('%:h').'/' : '%%'
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"------------------------- Vundle ----------------------------------
+filetype off                  " required
+
+set rtp+=~/.vim/bundle/Vundle.vim
+
+call vundle#begin()
+
+Plugin 'git://github.com/VundleVim/Vundle.vim.git'
+Plugin 'git://github.com/fatih/vim-go.git'
+Plugin 'git://github.com/tpope/vim-surround.git'
+Plugin 'git://github.com/Valloric/YouCompleteMe.git'
+Plugin 'majutsushi/tagbar'
+Plugin 'godlygeek/tabular'
+
+"Plugin 'vim-airline/vim-airline'
+"Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
+
+filetype plugin indent on    " required
+
+
+"---------------------- Ctags ---------------------------------
+" 按下F6重新生成tag文件，并更新taglist
+"map <F6> :!ctags -R --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q
+".<CR><CR> :TlistUpdate<CR>
+""imap <F6> <ESC>:!ctags -R --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q .<CR><CR> :TlistUpdate<CR>
+set tags+=$HOME/udb/tags
+set tags+=$HOME/wiwo/tags
+set tags+=$HOME/message/tags
+
+
+"--------------------- YCM ------------------------------------
+"
+let g:ycm_server_python_interpreter='/usr/bin/python'
+let g:ycm_global_ycm_extra_conf = '/root/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_disable_for_files_larger_than_kb = 5000
+let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_seed_identifiers_with_syntax=1
+let g:ycm_max_num_candidates = 50
+let g:ycm_max_num_identifier_candidates = 50
+let g:ycm_min_num_of_chars_for_completion=2
+let g:ycm_cache_omnifunc=0
+let g:ycm_complete_in_comments = 1 
+let g:ycm_complete_in_strings = 1
+let g:ycm_filetype_blacklist = {                                                                                                                                                           
+    \ 'tagbar' : 1,                                                                                                                                                                        
+    \ 'nerdtree' : 1,                                                                                                                                                                      
+    \}                                                                                                                                                                                     
+let g:ycm_key_list_select_completion = ['<Down>']                                                                                                                                          
+let g:ycm_key_list_previous_completion = ['<Up>']              
