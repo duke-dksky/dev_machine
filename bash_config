@@ -7,12 +7,22 @@ fi
 
 # User specific environment and startup programs
 export COMMON_HOME=/usr/local/bin
-export PYTHON_HOME=/data/src/Python3/bin
-export CMAKE_HOME=/data/src/cmake/bin
 
 export GOROOT=/usr/local/go
 export GOPATH=/data/go_workspace
 
-PATH=${COMMON_HOME}:${CMAKE_HOME}:${PYTHON_HOME}:$PATH:$HOME/bin:${GOROOT}/bin:${GOPATH}/bin
+PATH=${COMMON_HOME}:$PATH:$HOME/bin:${GOROOT}/bin:${GOPATH}/bin:/bin
+
+# python3 dir
+PYTHON_HOME=/data/src/python3/bin
+PATH=${PYTHON_HOME}:$PATH
+# git core dir
+PATH=$PATH:/usr/libexec/git-core/ 
+# cmake dir
+CMAKE_HOME=/data/src/cmake/bin
+PATH=${CMAKE_HOME}:$PATH
+# clang dir
+CLANG_HOME=/usr/local/clang/bin
+PATH=${CLANG_HOME}:$PATH
 
 export PATH
