@@ -16,3 +16,5 @@
 	email   = duke.yang@ucloud.cn
 [http]
 	sslVerify = false
+[core]
+	editer = vim
