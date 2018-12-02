@@ -118,6 +118,10 @@ set clipboard=unnamedplus
 " Add a bit extra margin to the left
 " set foldcolumn=1
 
+" highlight current line and column
+" set cursorline
+" set cursorcolumn
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Fonts and Colors
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -311,6 +315,8 @@ let g:ycm_cache_omnifunc=0
 let g:ycm_complete_in_comments = 1 
 let g:ycm_complete_in_strings = 1
 let g:ycm_key_list_previous_completion = ['<Up>']              
+
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 "-------------------- Airline -------------------------------------
 " set laststatus=2
