@@ -12,9 +12,12 @@
     ignore  = !git ls-files -v | grep "^[[:lower:]]"
     conf    = diff --name-only --diff-filter=U
 [user]
-	name    = duke.yang
-	email   = duke.yang@ucloud.cn
+	name    = yangdongkui
+	email   = yangdongkui928@gmail.com
 [http]
 	sslVerify = false
 [core]
 	editer = vim
+	editor = vim
+[url "git@git.ucloudadmin.com:"]
+	insteadOf = https://git.ucloudadmin.com/

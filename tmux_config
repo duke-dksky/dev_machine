@@ -54,8 +54,8 @@ bind -r ^h resizep -L 3 # to the left (prefix Ctrl+h)
 bind -r ^l resizep -R 3 # to the right (prefix Ctrl+l)
 
 # Move windows
-bind -r < swap-window -t -1
-bind -r > swap-window -t +1
+bind -r < swap-window -t -1 \; previous-window
+bind -r > swap-window -t +1 \; next-window
 
 # Do not display the original window’s name when renaming it
 # bind , command-prompt -p "(rename-window '#W')" "rename-window '%%'"
@@ -107,3 +107,5 @@ setw -g window-status-bg colour235
 setw -g window-status-attr none
 setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
 
+# tmux resurrent
+run-shell ~/.vim/bundle/tmux-resurrect/resurrect.tmux
